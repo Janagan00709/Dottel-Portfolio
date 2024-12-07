@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com'; // Import EmailJS
+import { CSSProperties } from 'react';
 
 // Services list for selection
 const services = [
@@ -35,18 +36,10 @@ const Contact = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    const message = `
-      Name: ${formData.name}
-      Email: ${formData.email}
-      Mobile: ${formData.mobile}
-      Message: ${formData.message}
-      Service: ${formData.service}
-    `;
-
     try {
       const response = await emailjs.send(
-        'service_hw1iwnr',    // Replace with your EmailJS service ID
-        'template_461aco9',   // Replace with your EmailJS template ID
+        'service_hw1iwnr', // Replace with your EmailJS service ID
+        'template_461aco9', // Replace with your EmailJS template ID
         {
           to_name: 'Team DOTTEL',
           from_name: formData.name,
@@ -69,16 +62,19 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-primary/[6.5%] to-white/5 px-8 py-16 text-center xl:py-24">
+    <div
+      className="flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-primary/[6.5%] to-white/5 px-8 py-16 text-center xl:py-24"
+    >
       <h2 className="text-4xl font-medium tracking-tighter xl:text-6xl">
         Contact <span className="text-gradient clash-grotesk">us.</span>
-        
       </h2>
 
       {!isSubmitted ? (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {/* Name Field */}
-          <label htmlFor="name" style={{ color: '#f0f0f0', fontSize: '18px', fontWeight: '999',paddingRight:'90%' }}  className="text-4xl font-medium tracking-tighter xl:text-6xl">
+          <label
+            htmlFor="name"
+            style={labelStyles}
+          >
             Name:
           </label>
           <input
@@ -91,8 +87,7 @@ const Contact = () => {
             style={inputStyles}
           />
 
-          {/* Email Field */}
-          <label htmlFor="email" style={{ color: '#f0f0f0', fontSize: '18px', fontWeight: '999' ,paddingRight:'90%'}}>
+          <label htmlFor="email" style={labelStyles}>
             Email:
           </label>
           <input
@@ -105,9 +100,8 @@ const Contact = () => {
             style={inputStyles}
           />
 
-          {/* Mobile Number Field */}
-          <label htmlFor="mobile" style={{ color: '#f0f0f0', fontSize: '18px', fontWeight: '999' ,paddingRight:'90%'}}>
-          Number:
+          <label htmlFor="mobile" style={labelStyles}>
+            Number:
           </label>
           <input
             type="text"
@@ -121,9 +115,8 @@ const Contact = () => {
             style={inputStyles}
           />
 
-          {/* Service Selection */}
-          <label htmlFor="mobile" style={{ color: '#f0f0f0', fontSize: '18px', fontWeight: '999' ,paddingRight:'90%'}}>
-            Service's:
+          <label htmlFor="services" style={labelStyles}>
+            Services:
           </label>
           <div style={serviceSelectorContainerStyles}>
             {services.map((service) => (
@@ -141,8 +134,7 @@ const Contact = () => {
             ))}
           </div>
 
-          {/* Message Field */}
-          <label htmlFor="message" style={{ color: '#f0f0f0', fontSize: '18px', fontWeight: '999' ,paddingRight:'90%'}}>
+          <label htmlFor="message" style={labelStyles}>
             Message:
           </label>
           <textarea
@@ -155,7 +147,6 @@ const Contact = () => {
             style={textareaStyles}
           ></textarea>
 
-          {/* Submit Button */}
           <button type="submit" style={submitButtonStyles}>
             {isLoading ? 'Submitting...' : 'Submit'}
           </button>
@@ -170,10 +161,10 @@ const Contact = () => {
 export default Contact;
 
 // Styles
-const inputStyles = {
+const inputStyles: CSSProperties = {
   width: '100%',
   padding: '0.5rem',
-  color: 'White',
+  color: 'white',
   marginTop: '0.5rem',
   backgroundColor: 'transparent',
   border: 'none',
@@ -183,28 +174,35 @@ const inputStyles = {
   paddingLeft: '10px',
 };
 
-const serviceSelectorContainerStyles = {
+const labelStyles: CSSProperties = {
+  color: '#f0f0f0',
+  fontSize: '18px',
+  fontWeight: 999,
+  paddingRight: '90%',
+};
+
+const serviceSelectorContainerStyles: CSSProperties = {
   display: 'flex',
   flexWrap: 'wrap',
   gap: '15px',
 };
 
-const serviceButtonStyles = {
+const serviceButtonStyles: CSSProperties = {
   padding: '5px 10px',
   borderRadius: '50px',
   cursor: 'pointer',
   transition: 'all 0.3s ease',
 };
 
-const textareaStyles = {
+const textareaStyles: CSSProperties = {
   ...inputStyles,
   height: '100px',
 };
 
-const submitButtonStyles = {
+const submitButtonStyles: CSSProperties = {
   padding: '0.75rem 1.5rem',
   fontSize: '16px',
-  fontWeight: '600',
+  fontWeight: 600,
   border: 'none',
   borderRadius: '8px',
   cursor: 'pointer',
